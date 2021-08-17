@@ -8,7 +8,7 @@ const Header = () => {
         <Link to="/">
           <button>Home</button>
         </Link>
-        <input placeholder="search for a film" />
+        <input className="input" placeholder="search for a film..." />
       </div>
     </>
   );
