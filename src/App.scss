@@ -1,0 +1,33 @@
+.App {
+  text-align: center;
+}
+
+.filmContainer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+
+
+ div{
+   margin: 10px;
+   width: 25vw;
+   height: 100%;
+
+ }
+}
+img{
+  width: 25vw;
+}
+
+
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
