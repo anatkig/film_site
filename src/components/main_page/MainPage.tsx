@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changeId } from "../../redux/slices/mainSlice";
 import { SyntheticEvent } from "react";
+import noposter from "../../assets/noposter.jpg";
 
 const MainPage = () => {
   const { data, error, isLoading } = useGetAllFilmsQuery("movies");
@@ -15,8 +16,7 @@ const MainPage = () => {
   };
 
   const handleImageError = (event: SyntheticEvent) => {
-    (event.target as HTMLImageElement).src =
-      "https://lh3.googleusercontent.com/proxy/Hpu9bjpJqqhAcrc2_3CdpUgQKDQGHvgnLDm9gJ6CWQTHT7oypUUpwS1-IaNE5qGcKkCJSIvKyspyder7angC361V_YucT_pC9xqLmzwYBiw1ciVUaRUOL6oEufN_IjbgAgTG3T6CNCkjTl05kL4nKUMTB7-KksrU-sI3cJxdLvpl-RDetQ";
+    (event.target as HTMLImageElement).src = `${noposter}`;
   };
 
   return (
