@@ -35,6 +35,7 @@ const Header = () => {
     //jump to the film page
     history.push("/film_page");
   };
+
   return (
     <div className="header">
       <h1>Film World</h1>
