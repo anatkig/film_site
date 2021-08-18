@@ -4,6 +4,9 @@ html {
 h1 {
   color: white;
 }
+datalist{
+  display:none;
+}
 .App {
   text-align: center;
 }
@@ -31,10 +34,12 @@ img {
   border-radius: 5px;
 }
 .input[placeholder] {
-  padding: 0% 1%;
-  width: 30vw;
+  width: 35vw;
+  padding: 0 1%;
+  background-color: transparent;
   border: none;
 }
+
 .input:focus {
   outline: none;
 }

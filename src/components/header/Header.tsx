@@ -45,11 +45,17 @@ const Header = () => {
         </Link>
         <div className="input-container">
           <input
+            list="films"
             className="input"
             value={inputValue}
             placeholder="search for a film..."
             onChange={(event) => setInputValue(event.target.value)}
           />
+          <datalist id="films">
+            {films?.map((film) => (
+              <option value={film.title} />
+            ))}
+          </datalist>
           <button onClick={handleSearch} className="search-button">
             <SearchIcon />
           </button>
