@@ -11,14 +11,7 @@ export const filmsApi = createApi({
     getFilmById: builder.query<Film, number>({
       query: (id) => `/movies/${id}`,
     }),
-    getFilmByTitle: builder.query<Film, string>({
-      query: (title) => `/movies/${title}`,
-    }),
   }),
 });
 
-export const {
-  useGetAllFilmsQuery,
-  useGetFilmByIdQuery,
-  useGetFilmByTitleQuery,
-} = filmsApi;
+export const { useGetAllFilmsQuery, useGetFilmByIdQuery } = filmsApi;
