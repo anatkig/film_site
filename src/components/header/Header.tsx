@@ -33,24 +33,24 @@ const Header = () => {
     setInputValue("");
 
     //jump to the film page
-    history.push("/film_page");
+    history.push("/film-page");
   };
 
   return (
     <div className="header">
       <h1>Film World</h1>
-      <div className="mini_form">
+      <div className="mini-form">
         <Link to="/">
-          <button className="home_button">Home</button>
+          <button className="home-button">Home</button>
         </Link>
-        <div className="input_container">
+        <div className="input-container">
           <input
             className="input"
             value={inputValue}
             placeholder="search for a film..."
             onChange={(event) => setInputValue(event.target.value)}
           />
-          <button onClick={handleSearch} className="search_button">
+          <button onClick={handleSearch} className="search-button">
             <SearchIcon />
           </button>
         </div>

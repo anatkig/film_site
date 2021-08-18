@@ -11,7 +11,7 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route path="/film_page">
+          <Route path="/film-page">
             <FilmPage />
           </Route>
           <Route path="/">

@@ -25,13 +25,13 @@ const FilmPage = () => {
       ) : film && Object.entries(film).length !== 0 ? (
         <>
           <div>
-            <div className="film_page_film_container">
+            <div className="film-page-film-container">
               <img
                 src={film.poster_path}
                 alt={film.title}
                 onError={handleImageError}
               />
-              <div className="film_info">
+              <div className="film-info">
                 <h2>{film.title}</h2>
                 <div>
                   <b>Genres:</b>

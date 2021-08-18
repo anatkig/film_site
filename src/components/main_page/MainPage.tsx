@@ -33,9 +33,9 @@ const MainPage = () => {
         <>Loading...</>
       ) : films ? (
         <>
-          <div className="main_page_film_container">
+          <div className="main-page-film-container">
             {films.map((film) => (
-              <Link to="/film_page">
+              <Link to="/film-page">
                 <div onClick={() => handleIdSendFilmId(film.id)}>
                   <h3>{film.title}</h3>
                   <div>
