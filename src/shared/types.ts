@@ -30,6 +30,12 @@ export type Film = {
   vote_average: number;
   vote_cout: number;
   poster_path: string;
+  overview: string;
+  genres: string[];
+  runtime: number;
+  budget: number;
+  revenue: number;
+  release_date: number;
 };
 export interface FilmState {
   id: number;

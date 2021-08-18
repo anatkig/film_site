@@ -36,7 +36,7 @@ const Header = () => {
     history.push("/film_page");
   };
   return (
-    <>
+    <div className="header">
       <h1>Film World</h1>
       <div className="mini_form">
         <Link to="/">
@@ -54,7 +54,7 @@ const Header = () => {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
