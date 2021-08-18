@@ -12,15 +12,15 @@ const MainPage = () => {
 
   const dispatch = useDispatch();
 
-  //put films into the main Slice in the store because it is easier to work with it
+  //put films into the main Slice in the store because it is easier to work with
   if (!error) dispatch(putFilms(films));
 
   //sets id of the film for the film page
-  const handleIdSend = (id: number) => {
+  const handleIdSendFilmId = (id: number) => {
     dispatch(changeId(id));
   };
 
-  //some images don't load. this method load the default image
+  //some images don't load. this method loads the default image
   const handleImageError = (event: SyntheticEvent) => {
     (event.target as HTMLImageElement).src = `${noposter}`;
   };
@@ -35,8 +35,8 @@ const MainPage = () => {
         <>
           <div className="main_page_film_container">
             {films.map((film) => (
-              <Link to="/film_page" key={film.id}>
-                <div onClick={() => handleIdSend(film.id)}>
+              <Link to="/film_page">
+                <div onClick={() => handleIdSendFilmId(film.id)}>
                   <h3>{film.title}</h3>
                   <div>
                     <img
