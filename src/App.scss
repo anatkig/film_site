@@ -16,22 +16,50 @@
 img {
   width: 25vw;
 }
-.miniForm *{
+
+
+.mini_form *{
+display: inline;
 font-size: 1.3rem;
 border-radius: 5px;
+
 }
 
 .input[placeholder]{
+
   padding: 0% 1%;
   width: 30vw;
+  border:none;
+
 }
-button{
+.input:focus{
+  outline: none;
+}
+
+.home_button{
+  display: inline-block;
   background-color: rgb(121, 121, 209);
   color: white;
 }
-button:hover{
+.home_button:hover{
   background-color: rgb(182, 182, 224);
 }
+.search_button{
+  position: relative;
+  top: 0.2rem;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  overflow:hidden;
+}
+.search_button:hover{
+  transform: scale(1.2);
+}
+.input_container{
+
+  border: solid black;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
