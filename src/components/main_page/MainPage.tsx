@@ -16,7 +16,7 @@ const MainPage = () => {
   if (!error) dispatch(putFilms(films));
 
   //sets id of the film for the film page
-  const handleIdSendFilmId = (id: number) => {
+  const handleSendFilmId = (id: number) => {
     dispatch(changeId(id));
   };
 
@@ -36,7 +36,7 @@ const MainPage = () => {
           <div className="main-page-film-container">
             {films.map((film) => (
               <Link to="/film-page">
-                <div onClick={() => handleIdSendFilmId(film.id)}>
+                <div onClick={() => handleSendFilmId(film.id)}>
                   <h3>{film.title}</h3>
                   <div>
                     <img

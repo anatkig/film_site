@@ -35,9 +35,8 @@ const FilmPage = () => {
                 <h2>{film.title}</h2>
                 <div>
                   <b>Genres:</b>
-                  {film.genres
-                    ? film.genres.map((genre) => <span>{genre}</span>)
-                    : "No genres specifies"}
+                  {film.genres &&
+                    film.genres.map((genre) => <span>{genre}</span>)}
                 </div>
                 <div>
                   <b>Release Date:</b>
