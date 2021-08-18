@@ -13,7 +13,7 @@ const FilmPage = () => {
         <>Oh no, there was an error</>
       ) : isLoading ? (
         <>Loading...</>
-      ) : film ? (
+      ) : film && Object.entries(film).length !== 0 ? (
         <>
           <div>
             <div className="film_page_film_container">
@@ -23,9 +23,9 @@ const FilmPage = () => {
 
                 <div>
                   <b>Genres:</b>
-                  {film.genres.map((genre) => (
-                    <span>{genre}</span>
-                  ))}
+                  {film.genres
+                    ? film.genres.map((genre) => <span>{genre}</span>)
+                    : "No genres specifies"}
                 </div>
                 <div>
                   <b>Release Date:</b>
@@ -40,7 +40,9 @@ const FilmPage = () => {
             </div>
           </div>
         </>
-      ) : null}
+      ) : (
+        "No film was specified"
+      )}
     </>
   );
 };

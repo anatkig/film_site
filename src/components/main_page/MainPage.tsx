@@ -1,6 +1,6 @@
-import { useGetAllFilmsQuery } from "../../redux/slices/apiSlice";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useGetAllFilmsQuery } from "../../redux/slices/apiSlice";
 import { changeId, putFilms } from "../../redux/slices/mainSlice";
 import { SyntheticEvent } from "react";
 import noposter from "../../assets/noposter.jpg";
@@ -35,7 +35,7 @@ const MainPage = () => {
         <>
           <div className="main_page_film_container">
             {films.map((film) => (
-              <Link to="/film_page">
+              <Link to="/film_page" key={film.id}>
                 <div onClick={() => handleIdSend(film.id)}>
                   <h3>{film.title}</h3>
                   <div>
