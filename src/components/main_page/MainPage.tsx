@@ -6,17 +6,21 @@ import { SyntheticEvent } from "react";
 import noposter from "../../assets/noposter.jpg";
 
 const MainPage = () => {
+  //get films using RTK Query
   const { data, error, isLoading } = useGetAllFilmsQuery("movies");
   const films = data ? data.data : null;
 
   const dispatch = useDispatch();
 
+  //put films into the main Slice in the store because it is easier to work with it
   if (!error) dispatch(putFilms(films));
 
+  //sets id of the film for the film page
   const handleIdSend = (id: number) => {
     dispatch(changeId(id));
   };
 
+  //some images don't load. this method load the default image
   const handleImageError = (event: SyntheticEvent) => {
     (event.target as HTMLImageElement).src = `${noposter}`;
   };
