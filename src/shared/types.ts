@@ -1,5 +1,5 @@
-import { CombinedState } from "@reduxjs/toolkit";
-import { filmsApi } from "./../redux/slices/apiSlice";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
+import { SerializedError } from "@reduxjs/toolkit";
 
 export type Films = {
   data: [

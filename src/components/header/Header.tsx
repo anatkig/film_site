@@ -53,7 +53,7 @@ const Header = () => {
           />
           <datalist id="films">
             {films?.map((film) => (
-              <option value={film.title} />
+              <option value={film.title} key={film.id} />
             ))}
           </datalist>
           <button onClick={handleSearch} className="search-button">

@@ -4,16 +4,23 @@ import { useGetAllFilmsQuery } from "../../redux/slices/apiSlice";
 import { changeId, putFilms } from "../../redux/slices/mainSlice";
 import { SyntheticEvent } from "react";
 import noposter from "../../assets/noposter.jpg";
+import { useState } from "react";
+import { useEffect } from "react";
+import { FilmsArray } from "../../shared/types";
 
 const MainPage = () => {
-  //get films using RTK Query
-  const { data, error, isLoading } = useGetAllFilmsQuery("movies");
-  const films = data ? data.data : null;
+  const [films, setFilms] = useState<FilmsArray | undefined>();
 
   const dispatch = useDispatch();
 
-  //put films into the main Slice in the store because it is easier to work with
-  if (!error) dispatch(putFilms(films));
+  //gets films using RTK Query
+  const { data, error, isLoading } = useGetAllFilmsQuery("movies");
+
+  useEffect(() => {
+    setFilms(data?.data);
+    //puts films into the main Slice in the store because it is easier to work with
+    if (!error) dispatch(putFilms(films));
+  }, [data, error, dispatch, films]);
 
   //sets id of the film for the film page
   const handleSendFilmId = (id: number) => {
@@ -35,7 +42,7 @@ const MainPage = () => {
         <>
           <div className="main-page-film-container">
             {films.map((film) => (
-              <Link to="/film-page">
+              <Link to="/film-page" key={film.id}>
                 <div onClick={() => handleSendFilmId(film.id)}>
                   <h3>{film.title}</h3>
                   <div>
