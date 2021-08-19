@@ -11,10 +11,13 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route path="/film-page">
+          <Route exact path="/film_page/:filmId">
             <FilmPage />
           </Route>
-          <Route path="/">
+          <Route exact path="/film_page/">
+            <FilmPage />
+          </Route>
+          <Route exact path="/">
             <MainPage />
           </Route>
         </Switch>

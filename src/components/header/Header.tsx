@@ -2,9 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
-import { useAppDispatch, useAppSelector } from "../../redux/store/hooks";
+import { useAppSelector } from "../../redux/store/hooks";
 import { FilmsArray } from "../../shared/types";
-import { changeId } from "../../redux/slices/mainSlice";
 
 const Header = () => {
   //we take data for search results from store because the API doesn't allow search by titles
@@ -12,7 +11,6 @@ const Header = () => {
     (state) => state.mainSlice.films
   );
 
-  const dispatch = useAppDispatch();
   const [inputValue, setInputValue] = useState<string>("");
 
   //allows to jump to another page without using a link
@@ -26,14 +24,12 @@ const Header = () => {
 
     //change id of the film for film page
     if (filmIndex > -1) {
-      if (films) dispatch(changeId(films[filmIndex].id));
+      //clean input field
+      setInputValue("");
+      if (films)
+        //jump to the film page
+        history.push(`/film-page/${films[filmIndex].id}`);
     }
-
-    //clean input field
-    setInputValue("");
-
-    //jump to the film page
-    history.push("/film-page");
   };
 
   return (

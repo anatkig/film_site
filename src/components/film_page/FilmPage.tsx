@@ -1,11 +1,31 @@
 import { useGetFilmByIdQuery } from "../../redux/slices/apiSlice";
-import { useAppSelector } from "../../redux/store/hooks";
 import noposter from "../../assets/noposter.jpg";
 import { SyntheticEvent } from "react";
+import { useParams } from "react-router";
+import { FilmIdObj } from "../../shared/types";
+import { useState } from "react";
+import { useAppSelector, useAppDispatch } from "../../redux/store/hooks";
+import { changeId } from "../../redux/slices/mainSlice";
+import { useEffect } from "react";
 
 const FilmPage = () => {
-  //gets id of the film from the store
-  const filmId = useAppSelector((state) => state.mainSlice.id);
+  //fallback id
+  const filmIdFromStore = useAppSelector((store) => store.mainSlice.id);
+
+  //gets parameter of the film from the link (with id)
+  const paramsFilmId = Number(useParams<FilmIdObj>().filmId);
+  const [filmId, setFilmId] = useState<number>(paramsFilmId);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!paramsFilmId) {
+      setFilmId(filmIdFromStore);
+    } else {
+      //this is useless right now. it could work with localStorage or backend
+      dispatch(changeId(paramsFilmId));
+    }
+  }, [dispatch, paramsFilmId, filmIdFromStore]);
 
   //loads the film based on id
   const { data, error, isLoading } = useGetFilmByIdQuery(filmId);
@@ -36,16 +56,18 @@ const FilmPage = () => {
                 <div>
                   <b>Genres:</b>
                   {film.genres &&
-                    film.genres.map((genre) => <span>{genre}</span>)}
+                    film.genres.map((genre) => (
+                      <span key={genre}>{genre}</span>
+                    ))}
                 </div>
                 <div>
                   <b>Release Date:</b>
                   <span>{film.release_date}</span>
                 </div>
-                <p>
+                <div>
                   <h4>Overview:</h4>
                   {film.overview}
-                </p>
+                </div>
               </div>
             </div>
           </div>

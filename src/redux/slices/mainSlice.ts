@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { FilmState, FilmsArray } from "../../shared/types";
 
 const initialState = {
-  id: 0,
+  id: 354912,
   films: [] as FilmsArray[] | undefined,
 } as FilmState;
 

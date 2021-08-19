@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useGetAllFilmsQuery } from "../../redux/slices/apiSlice";
-import { changeId, putFilms } from "../../redux/slices/mainSlice";
+import { putFilms } from "../../redux/slices/mainSlice";
 import { SyntheticEvent } from "react";
 import noposter from "../../assets/noposter.jpg";
 import { useState } from "react";
@@ -22,11 +22,6 @@ const MainPage = () => {
     if (!error) dispatch(putFilms(films));
   }, [data, error, dispatch, films]);
 
-  //sets id of the film for the film page
-  const handleSendFilmId = (id: number) => {
-    dispatch(changeId(id));
-  };
-
   //some images don't load. this method loads the default image
   const handleImageError = (event: SyntheticEvent) => {
     (event.target as HTMLImageElement).src = `${noposter}`;
@@ -42,8 +37,8 @@ const MainPage = () => {
         <>
           <div className="main-page-film-container">
             {films.map((film) => (
-              <Link to="/film-page" key={film.id}>
-                <div onClick={() => handleSendFilmId(film.id)}>
+              <Link to={{ pathname: `/film_page/${film.id}` }} key={film.id}>
+                <div>
                   <h3>{film.title}</h3>
                   <div>
                     <img

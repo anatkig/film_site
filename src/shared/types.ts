@@ -41,3 +41,7 @@ export interface FilmState {
   id: number;
   films: FilmsArray | undefined;
 }
+
+export type FilmIdObj = {
+  filmId: string;
+};
