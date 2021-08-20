@@ -4,7 +4,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { FilmsArray } from "../../shared/types";
 import { useDispatch } from "react-redux";
 import { useGetAllFilmsQuery } from "../../redux/slices/apiSlice";
-import { putFilms } from "../../redux/slices/mainSlice";
+import { changeId, putFilms } from "../../redux/slices/mainSlice";
 import { useState, useEffect } from "react";
 
 const Header = () => {
@@ -19,7 +19,10 @@ const Header = () => {
   useEffect(() => {
     setFilms(data?.data);
     //puts films into the main Slice in the store because it is easier to work with
-    if (!error) dispatch(putFilms(films));
+    if (!error) {
+      dispatch(putFilms(films));
+      dispatch(changeId(films?.[Math.floor(Math.random() * films.length)].id));
+    }
   }, [data, error, dispatch, films]);
 
   //allows to jump to another page without using a link
