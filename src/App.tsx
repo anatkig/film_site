@@ -11,7 +11,7 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route exact path="/film_page/:filmId">
+          <Route exact path="/film_page/:filmTitle">
             <FilmPage />
           </Route>
           <Route exact path="/film_page/">

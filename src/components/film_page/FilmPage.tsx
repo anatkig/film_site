@@ -1,39 +1,35 @@
-import { useGetFilmByIdQuery } from "../../redux/slices/apiSlice";
 import noposter from "../../assets/noposter.jpg";
 import { SyntheticEvent } from "react";
 import { useParams } from "react-router";
-import { FilmIdObj } from "../../shared/types";
+import { Film, FilmTitleObj } from "../../shared/types";
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/store/hooks";
-import { putCurrentFilmId } from "../../redux/slices/mainSlice";
+import { putCurrentFilmTitle } from "../../redux/slices/mainSlice";
 import { useEffect } from "react";
 
 const FilmPage = () => {
   //fallback id
-  const filmIdFromStore = useAppSelector(
-    (store) => store.mainSlice.currentFilmid
+  const filmTitleFromStore = useAppSelector(
+    (store) => store.mainSlice.currentFilmTitle
   );
+  const films = useAppSelector((store) => store.mainSlice.films);
 
   //gets parameter of the film from the link (with id)
-  const paramsFilmId = Number(useParams<FilmIdObj>().filmId);
-  const [filmId, setFilmId] = useState<number>(paramsFilmId);
+  const paramsFilmTitle = useParams<FilmTitleObj>().filmTitle;
+  const [film, setFilm] = useState<Film>();
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!paramsFilmId) {
-      setFilmId(filmIdFromStore);
+    if (!paramsFilmTitle) {
+      setFilm(films?.find((film) => film.title === filmTitleFromStore));
     } else {
-      setFilmId(paramsFilmId);
+      setFilm(films?.find((film) => film.title === paramsFilmTitle));
 
       //this is useless right now. it could work with localStorage or backend
-      dispatch(putCurrentFilmId(paramsFilmId));
+      dispatch(putCurrentFilmTitle(paramsFilmTitle));
     }
-  }, [dispatch, paramsFilmId, filmIdFromStore]);
-
-  //loads the film based on id
-  const { data, error, isLoading } = useGetFilmByIdQuery(filmId);
-  const film = data ? data : null;
+  }, [dispatch, paramsFilmTitle, filmTitleFromStore, films]);
 
   //some images don't load. this method loads the default image
   const handleImageError = (event: SyntheticEvent) => {
@@ -42,11 +38,7 @@ const FilmPage = () => {
 
   return (
     <>
-      {error ? (
-        <>Oh no, there was an error</>
-      ) : isLoading ? (
-        <>Loading...</>
-      ) : film && Object.entries(film).length !== 0 ? (
+      {film && Object.entries(film).length !== 0 ? (
         <>
           <div>
             <div className="film-page-film-container">

@@ -4,7 +4,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { FilmsArray } from "../../shared/types";
 import { useDispatch } from "react-redux";
 import { useGetAllFilmsQuery } from "../../redux/slices/apiSlice";
-import { putCurrentFilmId, putFilms } from "../../redux/slices/mainSlice";
+import { putCurrentFilmTitle, putFilms } from "../../redux/slices/mainSlice";
 import { useState, useEffect } from "react";
 
 const Header = () => {
@@ -17,12 +17,15 @@ const Header = () => {
   const { data, error } = useGetAllFilmsQuery("movies");
 
   useEffect(() => {
-    setFilms(data?.data);
-    //puts films into the main Slice in the store because it is easier to work with
     if (!error) {
+      //puts films into the main Slice in the store because it is easier to work with
+      setFilms(data?.data);
+
       dispatch(putFilms(films));
       dispatch(
-        putCurrentFilmId(films?.[Math.floor(Math.random() * films.length)].id)
+        putCurrentFilmTitle(
+          films?.[Math.floor(Math.random() * films.length)].title
+        )
       );
     }
   }, [data, error, dispatch, films]);
@@ -40,7 +43,7 @@ const Header = () => {
       setInputValue("");
 
       //jump to the film page
-      pageJumperFromRouter.push(`/film_page/${film.id}`);
+      pageJumperFromRouter.push(`/film_page/${film.title}`);
     }
   };
 
