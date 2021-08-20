@@ -10,7 +10,6 @@ import { useState, useEffect } from "react";
 const Header = () => {
   const [films, setFilms] = useState<FilmsArray | undefined>();
   const [inputValue, setInputValue] = useState<string>("");
-
   const dispatch = useDispatch();
 
   //gets films using RTK Query

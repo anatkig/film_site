@@ -1,23 +1,22 @@
 import noposter from "../../assets/noposter.jpg";
-import { SyntheticEvent } from "react";
 import { useParams } from "react-router";
 import { Film, FilmTitleObj } from "../../shared/types";
-import { useState } from "react";
+import { useState, useEffect, SyntheticEvent } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/store/hooks";
 import { putCurrentFilmTitle } from "../../redux/slices/mainSlice";
-import { useEffect } from "react";
 
 const FilmPage = () => {
   //fallback id
   const filmTitleFromStore = useAppSelector(
     (store) => store.mainSlice.currentFilmTitle
   );
+  //preloaded films from the store
   const films = useAppSelector((store) => store.mainSlice.films);
 
-  //gets parameter of the film from the link (with id)
+  //gets parameter of the film from the link (with title)
   const paramsFilmTitle = useParams<FilmTitleObj>().filmTitle;
-  const [film, setFilm] = useState<Film>();
 
+  const [film, setFilm] = useState<Film>();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -26,7 +25,7 @@ const FilmPage = () => {
     } else {
       setFilm(films?.find((film) => film.title === paramsFilmTitle));
 
-      //this is useless right now. it could work with localStorage or backend
+      //loads current Film's title into the store
       dispatch(putCurrentFilmTitle(paramsFilmTitle));
     }
   }, [dispatch, paramsFilmTitle, filmTitleFromStore, films]);
