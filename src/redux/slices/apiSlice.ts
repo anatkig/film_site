@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Films } from "../../shared/types";
+import { Films, Film } from "../../shared/types";
 
 export const filmsApi = createApi({
   reducerPath: "filmsApi",
@@ -8,7 +8,10 @@ export const filmsApi = createApi({
     getAllFilms: builder.query<Films, string>({
       query: (movies) => `/${movies}`,
     }),
+    getFilmById: builder.query<Film, number>({
+      query: (id) => `/movies/${id}`,
+    }),
   }),
 });
 
-export const { useGetAllFilmsQuery } = filmsApi;
+export const { useGetAllFilmsQuery, useGetFilmByIdQuery } = filmsApi;

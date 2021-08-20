@@ -1,34 +1,15 @@
 import noposter from "../../assets/noposter.jpg";
 import { useParams } from "react-router";
-import { Film, FilmTitleObj } from "../../shared/types";
-import { useState, useEffect, SyntheticEvent } from "react";
-import { useAppSelector, useAppDispatch } from "../../redux/store/hooks";
-import { putCurrentFilmTitle } from "../../redux/slices/mainSlice";
+import { FilmIdObj } from "../../shared/types";
+import { SyntheticEvent } from "react";
+import { useGetFilmByIdQuery } from "../../redux/slices/apiSlice";
 
 const FilmPage = () => {
-  //fallback id
-  const filmTitleFromStore = useAppSelector(
-    (store) => store.mainSlice.currentFilmTitle
-  );
-  //preloaded films from the store
-  const films = useAppSelector((store) => store.mainSlice.films);
+  //gets parameter of the film from the link (with id)
+  const paramsFilmId = Number(useParams<FilmIdObj>().filmId);
 
-  //gets parameter of the film from the link (with title)
-  const paramsFilmTitle = useParams<FilmTitleObj>().filmTitle;
-
-  const [film, setFilm] = useState<Film>();
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (!paramsFilmTitle) {
-      setFilm(films?.find((film) => film.title === filmTitleFromStore));
-    } else {
-      setFilm(films?.find((film) => film.title === paramsFilmTitle));
-
-      //loads current Film's title into the store
-      dispatch(putCurrentFilmTitle(paramsFilmTitle));
-    }
-  }, [dispatch, paramsFilmTitle, filmTitleFromStore, films]);
+  const { data } = useGetFilmByIdQuery(paramsFilmId);
+  const film = data ? data : null;
 
   //some images don't load. this method loads the default image
   const handleImageError = (event: SyntheticEvent) => {

@@ -18,10 +18,10 @@ export type Film = {
 };
 export type FilmsArray = Film[];
 export interface FilmState {
-  currentFilmTitle: string;
+  currentFilm: Film;
   films: FilmsArray | undefined;
 }
 
-export type FilmTitleObj = {
-  filmTitle: string;
+export type FilmIdObj = {
+  filmId: string;
 };

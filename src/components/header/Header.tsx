@@ -1,33 +1,13 @@
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
-import { FilmsArray } from "../../shared/types";
-import { useDispatch } from "react-redux";
-import { useGetAllFilmsQuery } from "../../redux/slices/apiSlice";
-import { putCurrentFilmTitle, putFilms } from "../../redux/slices/mainSlice";
-import { useState, useEffect } from "react";
+import { useAppSelector } from "../../redux/store/hooks";
+
+import { useState } from "react";
 
 const Header = () => {
-  const [films, setFilms] = useState<FilmsArray | undefined>();
   const [inputValue, setInputValue] = useState<string>("");
-  const dispatch = useDispatch();
-
-  //gets films using RTK Query
-  const { data, error } = useGetAllFilmsQuery("movies");
-
-  useEffect(() => {
-    if (!error) {
-      //puts films into the main Slice in the store because it is easier to work with
-      setFilms(data?.data);
-
-      dispatch(putFilms(films));
-      dispatch(
-        putCurrentFilmTitle(
-          films?.[Math.floor(Math.random() * films.length)].title
-        )
-      );
-    }
-  }, [data, error, dispatch, films]);
+  const films = useAppSelector((store) => store.mainSlice.films);
 
   //allows to jump to another page without using a link
   const pageJumperFromRouter = useHistory();
@@ -42,7 +22,7 @@ const Header = () => {
       setInputValue("");
 
       //jump to the film page
-      pageJumperFromRouter.push(`/film_page/${film.title}`);
+      pageJumperFromRouter.push(`/film_page/${film.id}`);
     }
   };
 

@@ -1,3 +1,6 @@
+
+
+
 @mixin pages {
   display: flex;
   justify-content: center;
@@ -84,3 +87,8 @@ img {
 .search-button:hover {
   transform: scale(1.2);
 }
+@media screen and (max-width:800px){
+  .main-page-film-container{
+    flex-flow:column wrap;
+  }
+ }
