@@ -22,11 +22,12 @@ const FilmPage = () => {
     if (!paramsFilmId) {
       setFilmId(filmIdFromStore);
     } else {
+      setFilmId(paramsFilmId);
       //this is useless right now. it could work with localStorage or backend
       dispatch(changeId(paramsFilmId));
     }
   }, [dispatch, paramsFilmId, filmIdFromStore]);
-
+  console.log(filmId);
   //loads the film based on id
   const { data, error, isLoading } = useGetFilmByIdQuery(filmId);
   const film = data ? data : null;

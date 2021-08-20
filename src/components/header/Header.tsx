@@ -1,20 +1,29 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
-import { useAppSelector } from "../../redux/store/hooks";
 import { FilmsArray } from "../../shared/types";
+import { useDispatch } from "react-redux";
+import { useGetAllFilmsQuery } from "../../redux/slices/apiSlice";
+import { putFilms } from "../../redux/slices/mainSlice";
+import { useState, useEffect } from "react";
 
 const Header = () => {
-  //we take data for search results from store because the API doesn't allow search by titles
-  const films: FilmsArray | undefined = useAppSelector(
-    (state) => state.mainSlice.films
-  );
-
+  const [films, setFilms] = useState<FilmsArray | undefined>();
   const [inputValue, setInputValue] = useState<string>("");
 
+  const dispatch = useDispatch();
+
+  //gets films using RTK Query
+  const { data, error } = useGetAllFilmsQuery("movies");
+
+  useEffect(() => {
+    setFilms(data?.data);
+    //puts films into the main Slice in the store because it is easier to work with
+    if (!error) dispatch(putFilms(films));
+  }, [data, error, dispatch, films]);
+
   //allows to jump to another page without using a link
-  const history = useHistory();
+  const pageJumperFromRouter = useHistory();
 
   const handleSearch = () => {
     //find index of the film with matching title
@@ -26,9 +35,9 @@ const Header = () => {
     if (filmIndex > -1) {
       //clean input field
       setInputValue("");
-      if (films)
-        //jump to the film page
-        history.push(`/film-page/${films[filmIndex].id}`);
+
+      //jump to the film page
+      pageJumperFromRouter.push(`/film_page/${films?.[filmIndex].id}`);
     }
   };
 

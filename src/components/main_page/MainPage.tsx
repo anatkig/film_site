@@ -1,26 +1,14 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useGetAllFilmsQuery } from "../../redux/slices/apiSlice";
-import { putFilms } from "../../redux/slices/mainSlice";
 import { SyntheticEvent } from "react";
 import noposter from "../../assets/noposter.jpg";
-import { useState } from "react";
-import { useEffect } from "react";
 import { FilmsArray } from "../../shared/types";
+import { useAppSelector } from "../../redux/store/hooks";
 
 const MainPage = () => {
-  const [films, setFilms] = useState<FilmsArray | undefined>();
-
-  const dispatch = useDispatch();
-
-  //gets films using RTK Query
-  const { data, error, isLoading } = useGetAllFilmsQuery("movies");
-
-  useEffect(() => {
-    setFilms(data?.data);
-    //puts films into the main Slice in the store because it is easier to work with
-    if (!error) dispatch(putFilms(films));
-  }, [data, error, dispatch, films]);
+  //we take data for search results from store because the API doesn't allow search by titles
+  const films: FilmsArray | undefined = useAppSelector(
+    (state) => state.mainSlice.films
+  );
 
   //some images don't load. this method loads the default image
   const handleImageError = (event: SyntheticEvent) => {
@@ -29,11 +17,7 @@ const MainPage = () => {
 
   return (
     <>
-      {error ? (
-        <>Oh no, there was an error</>
-      ) : isLoading ? (
-        <>Loading...</>
-      ) : films ? (
+      {films ? (
         <>
           <div className="main-page-film-container">
             {films.map((film) => (
@@ -53,7 +37,9 @@ const MainPage = () => {
             ))}
           </div>
         </>
-      ) : null}
+      ) : (
+        "API is not working for some reason"
+      )}
     </>
   );
 };
