@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { FilmState, FilmsArray } from "../../shared/types";
 
 const initialState = {
-  id: 354912,
+  currentFilmid: 0,
   films: [] as FilmsArray[] | undefined,
 } as FilmState;
 
@@ -11,7 +11,7 @@ const mainSlice = createSlice({
   initialState,
   reducers: {
     //sets id of the film which will be displayed on film page
-    changeId(state, action) {
+    putCurrentFilmId(state, action) {
       return { ...state, id: action.payload };
     },
     //saves films from API into the store
@@ -21,5 +21,5 @@ const mainSlice = createSlice({
   },
 });
 
-export const { changeId, putFilms } = mainSlice.actions;
+export const { putCurrentFilmId, putFilms } = mainSlice.actions;
 export default mainSlice.reducer;

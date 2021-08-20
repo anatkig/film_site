@@ -5,12 +5,14 @@ import { useParams } from "react-router";
 import { FilmIdObj } from "../../shared/types";
 import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/store/hooks";
-import { changeId } from "../../redux/slices/mainSlice";
+import { putCurrentFilmId } from "../../redux/slices/mainSlice";
 import { useEffect } from "react";
 
 const FilmPage = () => {
   //fallback id
-  const filmIdFromStore = useAppSelector((store) => store.mainSlice.id);
+  const filmIdFromStore = useAppSelector(
+    (store) => store.mainSlice.currentFilmid
+  );
 
   //gets parameter of the film from the link (with id)
   const paramsFilmId = Number(useParams<FilmIdObj>().filmId);
@@ -23,8 +25,9 @@ const FilmPage = () => {
       setFilmId(filmIdFromStore);
     } else {
       setFilmId(paramsFilmId);
+
       //this is useless right now. it could work with localStorage or backend
-      dispatch(changeId(paramsFilmId));
+      dispatch(putCurrentFilmId(paramsFilmId));
     }
   }, [dispatch, paramsFilmId, filmIdFromStore]);
 

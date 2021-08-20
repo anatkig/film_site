@@ -1,6 +1,3 @@
-import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
-import { SerializedError } from "@reduxjs/toolkit";
-
 export type Films = {
   data: [
     {
@@ -38,7 +35,7 @@ export type Film = {
   release_date: number;
 };
 export interface FilmState {
-  id: number;
+  currentFilmid: number;
   films: FilmsArray | undefined;
 }
 

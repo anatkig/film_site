@@ -4,7 +4,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { FilmsArray } from "../../shared/types";
 import { useDispatch } from "react-redux";
 import { useGetAllFilmsQuery } from "../../redux/slices/apiSlice";
-import { changeId, putFilms } from "../../redux/slices/mainSlice";
+import { putCurrentFilmId, putFilms } from "../../redux/slices/mainSlice";
 import { useState, useEffect } from "react";
 
 const Header = () => {
@@ -21,7 +21,9 @@ const Header = () => {
     //puts films into the main Slice in the store because it is easier to work with
     if (!error) {
       dispatch(putFilms(films));
-      dispatch(changeId(films?.[Math.floor(Math.random() * films.length)].id));
+      dispatch(
+        putCurrentFilmId(films?.[Math.floor(Math.random() * films.length)].id)
+      );
     }
   }, [data, error, dispatch, films]);
 
@@ -30,17 +32,15 @@ const Header = () => {
 
   const handleSearch = () => {
     //find index of the film with matching title
-    const filmIndex = films
-      ? films.findIndex((film) => film.title === inputValue)
-      : -1;
+    const film = films?.find((film) => film.title === inputValue);
 
     //change id of the film for film page
-    if (filmIndex > -1) {
+    if (film) {
       //clean input field
       setInputValue("");
 
       //jump to the film page
-      pageJumperFromRouter.push(`/film_page/${films?.[filmIndex].id}`);
+      pageJumperFromRouter.push(`/film_page/${film.id}`);
     }
   };
 
