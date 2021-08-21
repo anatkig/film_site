@@ -23,14 +23,13 @@ const MainPage = () => {
               >
                 <div>
                   <h3>{film.title}</h3>
-                  <div>
-                    <img
-                      id="image"
-                      src={film.poster_path}
-                      onError={handleImageError}
-                      alt={film.title}
-                    />
-                  </div>
+
+                  <img
+                    id="image"
+                    src={film.poster_path}
+                    onError={handleImageError}
+                    alt={film.title}
+                  />
                 </div>
               </Link>
             ))}

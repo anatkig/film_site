@@ -19,35 +19,29 @@ const FilmPage = () => {
   return (
     <>
       {film && Object.entries(film).length !== 0 ? (
-        <>
-          <div>
-            <div className="film-page-film-container">
-              <img
-                src={film.poster_path}
-                alt={film.title}
-                onError={handleImageError}
-              />
-              <div className="film-info">
-                <h2>{film.title}</h2>
-                <div>
-                  <b>Genres:</b>
-                  {film.genres &&
-                    film.genres.map((genre) => (
-                      <span key={genre}>{genre}</span>
-                    ))}
-                </div>
-                <div>
-                  <b>Release Date:</b>
-                  <span>{film.release_date}</span>
-                </div>
-                <div>
-                  <h4>Overview:</h4>
-                  {film.overview}
-                </div>
-              </div>
+        <div className="film-page-film-container">
+          <img
+            src={film.poster_path}
+            alt={film.title}
+            onError={handleImageError}
+          />
+          <div className="film-info">
+            <h2>{film.title}</h2>
+            <div>
+              <b>Genres:</b>
+              {film.genres &&
+                film.genres.map((genre) => <span key={genre}>{genre}</span>)}
+            </div>
+            <div>
+              <b>Release Date:</b>
+              <span>{film.release_date}</span>
+            </div>
+            <div>
+              <h4>Overview:</h4>
+              {film.overview}
             </div>
           </div>
-        </>
+        </div>
       ) : (
         "No film was specified"
       )}
