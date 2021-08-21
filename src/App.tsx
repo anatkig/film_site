@@ -27,13 +27,13 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route exact path="/film_page/:filmId">
+          <Route exact path="/film_site/film_page/:filmId">
             <FilmPage />
           </Route>
-          <Route exact path="/film_page/">
+          <Route exact path="/film_site/film_page/">
             <FilmPage />
           </Route>
-          <Route exact path="/">
+          <Route exact path="/film_site">
             <MainPage />
           </Route>
         </Switch>
