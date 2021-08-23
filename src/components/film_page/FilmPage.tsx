@@ -1,15 +1,21 @@
 import noposter from "../../assets/noposter.jpg";
 import { useParams } from "react-router";
-import { FilmIdObj } from "../../shared/types";
+import { Film, FilmIdObj } from "../../shared/types";
 import { SyntheticEvent } from "react";
 import { useGetFilmByIdQuery } from "../../redux/slices/apiSlice";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const FilmPage = () => {
+  const [film, setFilm] = useState<Film>();
   //gets parameter of the film from the link (with id)
   const paramsFilmId = Number(useParams<FilmIdObj>().filmId);
 
   const { data } = useGetFilmByIdQuery(paramsFilmId);
-  const film = data ? data : null;
+
+  useEffect(() => {
+    setFilm(data);
+  }, [data]);
 
   //some images don't load. this method loads the default image
   const handleImageError = (event: SyntheticEvent) => {

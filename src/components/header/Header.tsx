@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
 import { useAppSelector } from "../../redux/store/hooks";
-
 import { useState } from "react";
 
 const Header = () => {
@@ -25,7 +24,7 @@ const Header = () => {
       pageJumperFromRouter.push(`/film_site/film_page/${film.id}`);
     }
   };
-
+  console.log(inputValue);
   return (
     <div className="header">
       <h1>Film World</h1>
