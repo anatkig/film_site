@@ -24,13 +24,13 @@ function App() {
 
   return (
     <div className="App">
-      <Router basename="/">
+      <Router basename="/film_site">
         <Header />
         <Switch>
-          <Route path="/film_site/:filmId">
+          <Route path="/:filmId">
             <FilmPage />
           </Route>
-          <Route path="/film_site">
+          <Route path="/">
             <MainPage />
           </Route>
         </Switch>

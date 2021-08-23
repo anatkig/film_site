@@ -21,7 +21,7 @@ const Header = () => {
       setInputValue("");
 
       //jump to the film page
-      pageJumperFromRouter.push(`/film_site/${film.id}`);
+      pageJumperFromRouter.push(`/${film.id}`);
     }
   };
 
@@ -29,7 +29,7 @@ const Header = () => {
     <div className="header">
       <h1>Film World</h1>
       <div className="mini-form">
-        <Link to="/film_site">
+        <Link to="/">
           <button className="home-button">Home</button>
         </Link>
         <div className="input-container">
