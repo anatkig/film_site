@@ -21,7 +21,7 @@ const Header = () => {
       setInputValue("");
 
       //jump to the film page
-      pageJumperFromRouter.push(`/film_site/film_page/${film.id}`);
+      pageJumperFromRouter.push(`/film_site/${film.id}`);
     }
   };
   console.log(inputValue);

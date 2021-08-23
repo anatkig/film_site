@@ -17,10 +17,7 @@ const MainPage = () => {
         <>
           <div className="main-page-film-container">
             {films.map((film) => (
-              <Link
-                to={{ pathname: `/film_site/film_page/${film.id}` }}
-                key={film.id}
-              >
+              <Link to={{ pathname: `/film_site/${film.id}` }} key={film.id}>
                 <div>
                   <h3>{film.title}</h3>
 

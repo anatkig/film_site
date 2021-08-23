@@ -27,10 +27,7 @@ function App() {
       <Router>
         <Header />
         <Switch>
-          <Route exact path="/film_site/film_page/:filmId">
-            <FilmPage />
-          </Route>
-          <Route exact path="/film_site/film_page/">
+          <Route exact path="/film_site/:filmId">
             <FilmPage />
           </Route>
           <Route exact path="/film_site">
