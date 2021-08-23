@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
+      <Router basename="/">
         <Header />
         <Switch>
           <Route path="/film_site/:filmId">

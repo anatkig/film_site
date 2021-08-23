@@ -24,7 +24,7 @@ const Header = () => {
       pageJumperFromRouter.push(`/film_site/${film.id}`);
     }
   };
-  console.log(inputValue);
+
   return (
     <div className="header">
       <h1>Film World</h1>
