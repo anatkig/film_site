@@ -1,57 +1,43 @@
-import { useGetAllFilmsQuery } from "../../redux/slices/apiSlice";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { changeId, putFilms } from "../../redux/slices/mainSlice";
 import { SyntheticEvent } from "react";
 import noposter from "../../assets/noposter.jpg";
+import { useAppSelector } from "../../redux/store/hooks";
 
 const MainPage = () => {
-  //get films using RTK Query
-  const { data, error, isLoading } = useGetAllFilmsQuery("movies");
-  const films = data ? data.data : null;
+  const films = useAppSelector((store) => store.mainSlice.films);
 
-  const dispatch = useDispatch();
-
-  //put films into the main Slice in the store because it is easier to work with it
-  if (!error) dispatch(putFilms(films));
-
-  //sets id of the film for the film page
-  const handleIdSend = (id: number) => {
-    dispatch(changeId(id));
-  };
-
-  //some images don't load. this method load the default image
+  //some images don't load. this method loads the default image
   const handleImageError = (event: SyntheticEvent) => {
     (event.target as HTMLImageElement).src = `${noposter}`;
   };
 
   return (
     <>
-      {error ? (
-        <>Oh no, there was an error</>
-      ) : isLoading ? (
-        <>Loading...</>
-      ) : films ? (
+      {films ? (
         <>
-          <div className="filmContainer">
+          <div className="main-page-film-container">
             {films.map((film) => (
-              <Link to="/film_page">
-                <div onClick={() => handleIdSend(film.id)}>
+              <Link
+                to={{ pathname: `/film_site/film_page/${film.id}` }}
+                key={film.id}
+              >
+                <div>
                   <h3>{film.title}</h3>
-                  <div>
-                    <img
-                      id="image"
-                      src={film.poster_path}
-                      onError={handleImageError}
-                      alt={film.title}
-                    />
-                  </div>
+
+                  <img
+                    id="image"
+                    src={film.poster_path}
+                    onError={handleImageError}
+                    alt={film.title}
+                  />
                 </div>
               </Link>
             ))}
           </div>
         </>
-      ) : null}
+      ) : (
+        "API is not working for some reason"
+      )}
     </>
   );
 };

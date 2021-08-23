@@ -1,11 +1,30 @@
+@mixin pages {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  background-color: white;
+}
+html {
+  background-color: grey;
+}
+h1 {
+  color: white;
+}
+datalist{
+  display:none;
+}
+img {
+  width: 22vw;
+}
 .App {
   text-align: center;
 }
-
-.filmContainer {
-  display: flex;
+.header {
+  background-color: transparent;
+}
+.main-page-film-container {
+  @include pages();
   flex-wrap: wrap;
-  justify-content: center;
 
   div {
     margin: 10px;
@@ -13,58 +32,79 @@
     height: 100%;
   }
 }
-img {
-  width: 25vw;
+.film-page-film-container {
+  @include pages();
+  flex-direction: row;
+  * {
+    margin: 10px;
+  }
+  .film-info {
+    text-align: left;
+    margin: 10px;
+    width: 35vw;
+  }
+}
+.mini-form * {
+  display: inline;
+  font-size: 1.3rem;
+  border-radius: 5px;
+}
+.input-container {
+  background-color: white;
+  border: solid black;
 }
 
-
-.mini_form *{
-display: inline;
-font-size: 1.3rem;
-border-radius: 5px;
-
+.input[placeholder] {
+  width: 35vw;
+  padding: 0 1%;
+  background-color: transparent;
+  border: none;
 }
-
-.input[placeholder]{
-
-  padding: 0% 1%;
-  width: 30vw;
-  border:none;
-
-}
-.input:focus{
+.input:focus {
   outline: none;
 }
-
-.home_button{
+.home-button {
   display: inline-block;
   background-color: rgb(121, 121, 209);
   color: white;
+  line-height: 1.7rem;
+  border: solid black;
 }
-.home_button:hover{
+.home-button:hover {
   background-color: rgb(182, 182, 224);
 }
-.search_button{
+.search-button {
   position: relative;
   top: 0.2rem;
   background-color: transparent;
   cursor: pointer;
   border: none;
-  overflow:hidden;
+  overflow: hidden;
 }
-.search_button:hover{
+.search-button:hover {
   transform: scale(1.2);
 }
-.input_container{
-
-  border: solid black;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media screen and(max-width:950px){
+  img{
+    width: 25vw;
   }
 }
+
+@media screen and (max-width:850px){
+  .main-page-film-container, .film-page-film-container{
+    flex-flow:column wrap;
+  }
+  img, h3{
+ margin-left: 15vw;
+ width: 70vw;
+  }
+.film-page-film-container{
+
+  div, h2, img{
+    margin-left: 15vw;
+    text-align:justify;
+    width: 70vw;
+  }
+
+}
+ }

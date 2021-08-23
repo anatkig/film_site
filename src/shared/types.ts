@@ -1,28 +1,7 @@
-import { CombinedState } from "@reduxjs/toolkit";
-import { filmsApi } from "./../redux/slices/apiSlice";
-
 export type Films = {
-  data: [
-    {
-      id: number;
-      title: string;
-      tagline: string;
-      vote_average: number;
-      vote_cout: number;
-      poster_path: string;
-    }
-  ];
+  data: Film[];
 };
-export type FilmsArray = [
-  {
-    id: number;
-    title: string;
-    tagline: string;
-    vote_average: number;
-    vote_cout: number;
-    poster_path: string;
-  }
-];
+
 export type Film = {
   id: number;
   title: string;
@@ -30,8 +9,19 @@ export type Film = {
   vote_average: number;
   vote_cout: number;
   poster_path: string;
+  overview: string;
+  genres: string[];
+  runtime: number;
+  budget: number;
+  revenue: number;
+  release_date: number;
 };
+export type FilmsArray = Film[];
 export interface FilmState {
-  id: number;
+  currentFilm: Film;
   films: FilmsArray | undefined;
 }
+
+export type FilmIdObj = {
+  filmId: string;
+};
