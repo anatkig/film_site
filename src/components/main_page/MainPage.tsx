@@ -33,7 +33,7 @@ const MainPage = () => {
           </div>
         </>
       ) : (
-        "API is not working for some reason"
+        "Films are loading"
       )}
     </>
   );
