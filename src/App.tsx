@@ -3,12 +3,7 @@ import "./App.scss";
 import Header from "./components/header/Header";
 import MainPage from "./components/main_page/MainPage";
 import FilmPage from "./components/film_page/FilmPage";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { useGetAllFilmsQuery } from "./redux/slices/apiSlice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -29,7 +24,7 @@ function App() {
 
   return (
     <div className="App">
-      <Router basename="/film_site">
+      <Router basename="/">
         <Header />
         <Switch>
           <Route exact path="/">
@@ -38,8 +33,6 @@ function App() {
           <Route path="/:filmId">
             <FilmPage />
           </Route>
-
-          <Redirect from="/:filmId" to="/" />
         </Switch>
       </Router>
     </div>
