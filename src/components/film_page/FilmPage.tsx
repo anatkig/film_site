@@ -49,7 +49,7 @@ const FilmPage = () => {
           </div>
         </div>
       ) : (
-        "No film was specified"
+        "No film was specified or it is still loading"
       )}
     </>
   );
