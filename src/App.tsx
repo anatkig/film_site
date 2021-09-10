@@ -32,13 +32,14 @@ function App() {
       <Router basename="/film_site">
         <Header />
         <Switch>
+          <Route exact path="/">
+            <MainPage />
+          </Route>
           <Route path="/:filmId">
             <FilmPage />
           </Route>
-          <Route path="/">
-            <MainPage />
-          </Route>
-          <Redirect to="/film_site" />
+
+          <Redirect from="/:filmId" to="/" />
         </Switch>
       </Router>
     </div>
