@@ -1,4 +1,4 @@
-import React, { ErrorInfo } from "react";
+import React from "react";
 
 interface ErrorState {
   hasError: boolean;
