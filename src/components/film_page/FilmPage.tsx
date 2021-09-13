@@ -1,7 +1,7 @@
 import noposter from "../../assets/noposter.jpg";
 import { useParams } from "react-router";
-import { Film, FilmIdObj } from "../../shared/types";
 import { SyntheticEvent } from "react";
+import { Film, FilmIdObj } from "../../shared/types";
 import { useGetFilmByIdQuery } from "../../redux/slices/apiSlice";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -13,23 +13,23 @@ const FilmPage = () => {
 
   const { data } = useGetFilmByIdQuery(paramsFilmId);
 
-  useEffect(() => {
-    setFilm(data);
-  }, [data]);
-
   //some images don't load. this method loads the default image
   const handleImageError = (event: SyntheticEvent) => {
     (event.target as HTMLImageElement).src = `${noposter}`;
   };
+
+  useEffect(() => {
+    setFilm(data);
+  }, [data]);
 
   return (
     <>
       {film && Object.entries(film).length !== 0 ? (
         <div className="film-page-film-container">
           <img
-            src={film.poster_path}
-            alt={film.title}
+            src={film.poster_path ?? `${noposter}`}
             onError={handleImageError}
+            alt={film.title}
           />
           <div className="film-info">
             <h2>{film.title}</h2>
