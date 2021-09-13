@@ -9,7 +9,7 @@ const Header = () => {
   const films = useAppSelector((store) => store.mainSlice.films);
 
   //allows to jump to another page without using a link
-  const pageJumperFromRouter = useHistory();
+  const history = useHistory();
 
   const handleSearch = () => {
     //find index of the film with matching title
@@ -21,7 +21,7 @@ const Header = () => {
       setInputValue("");
 
       //jump to the film page
-      pageJumperFromRouter.push(`/${film.id}`);
+      history.push(`/${film.id}`);
     }
   };
 

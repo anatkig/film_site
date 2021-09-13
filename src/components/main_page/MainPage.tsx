@@ -1,15 +1,24 @@
 import { Link } from "react-router-dom";
-import { SyntheticEvent } from "react";
-import noposter from "../../assets/noposter.jpg";
-import { useAppSelector } from "../../redux/store/hooks";
+import { handleImageError } from "../../shared/reusableFunctions";
+import { useGetAllFilmsQuery } from "../../redux/slices/apiSlice";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { putFilms } from "../../redux/slices/mainSlice";
 
 const MainPage = () => {
-  const films = useAppSelector((store) => store.mainSlice.films);
+  //gets films using RTK Query
+  const { data, error } = useGetAllFilmsQuery("movies");
 
-  //some images don't load. this method loads the default image
-  const handleImageError = (event: SyntheticEvent) => {
-    (event.target as HTMLImageElement).src = `${noposter}`;
-  };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!error) {
+      //puts films into the main Slice
+      dispatch(putFilms(data?.data));
+    }
+  }, [data, error, dispatch]);
+
+  const films = data?.data;
 
   return (
     <>
