@@ -1,29 +1,46 @@
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
-import { useAppSelector } from "../../redux/store/hooks";
 import { useState } from "react";
+import { useGetFilmsByTitleQuery } from "../../redux/slices/apiSlice";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { putFilms } from "../../redux/slices/mainSlice";
+import { useHistory } from "react-router";
+import { useParams } from "react-router";
+import { FilmIdObj } from "../../shared/types";
 
 const Header = () => {
   const [inputValue, setInputValue] = useState<string>("");
-  const films = useAppSelector((store) => store.mainSlice.films);
 
-  //allows to jump to another page without using a link
+  //gets films using RTK Query
+  const { data, error } = useGetFilmsByTitleQuery(inputValue);
+
+  const dispatch = useDispatch();
   const history = useHistory();
+  const paramsFilmId = useParams<FilmIdObj>().filmId;
 
-  const handleSearch = () => {
-    //find index of the film with matching title
-    const film = films?.find((film) => film.title === inputValue);
-
-    //change id of the film for film page
-    if (film) {
-      //clean input field
-      setInputValue("");
-
-      //jump to the film page
-      history.push(`/${film.id}`);
+  useEffect(() => {
+    if (!error) {
+      //puts films into the main Slice
+      dispatch(putFilms(data?.data));
     }
-  };
+  }, [data, error, dispatch]);
+
+  useEffect(() => {
+    if (!inputValue && paramsFilmId) {
+      //if the user starts searching on film page,
+      //he is automatically transfered to main page with the search results
+      history.push("/");
+    }
+  }, [inputValue, history, paramsFilmId]);
+
+  useEffect(() => {
+    window.onclick = (event: MouseEvent) => {
+      if ((event.target as HTMLElement).className !== "input") {
+        setInputValue("");
+      }
+    };
+  });
 
   return (
     <div className="header">
@@ -40,12 +57,7 @@ const Header = () => {
             placeholder="search for a film..."
             onChange={(event) => setInputValue(event.target.value)}
           />
-          <datalist id="films">
-            {films?.map((film) => (
-              <option value={film.title} key={film.id} />
-            ))}
-          </datalist>
-          <button onClick={handleSearch} className="search-button">
+          <button className="search-button">
             <SearchIcon />
           </button>
         </div>
