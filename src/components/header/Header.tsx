@@ -27,7 +27,7 @@ const Header = () => {
   }, [data, error, dispatch]);
 
   useEffect(() => {
-    if (!inputValue && paramsFilmId) {
+    if (inputValue && paramsFilmId) {
       //if the user starts searching on film page,
       //he is automatically transfered to main page with the search results
       history.push("/");
